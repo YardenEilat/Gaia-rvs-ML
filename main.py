@@ -48,7 +48,6 @@ def load_data():
         weirdness_score = d['weirdness_score']
         source_ids_weirdness = d['source_ids']
     assert np.all(source_ids == source_ids_weirdness)
-    from tqdm import tqdm
     with np.load('umap_embedding_25nn_highsnr_no_duplicates.npz', allow_pickle=True) as d:
         global X_embedded
         X_embedded = d['X_embedded']
