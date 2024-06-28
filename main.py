@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import argparse
 from datetime import datetime
 from scipy.optimize import minimize
 from bokeh.models import Button, MultiSelect, Select
@@ -9,9 +10,6 @@ from bokeh.plotting import figure, curdoc
 from bokeh.layouts import row, column
 from bokeh.models import ColorBar, ColumnDataSource, LassoSelectTool, TapTool, Band
 from bokeh.models.mappers import LinearColorMapper
-
-PERCENT_TO_DISPLAY = 10
-PLOT_WIDTH = 800
 
 
 def load_data():
@@ -399,8 +397,20 @@ def plot_avg_spec(total_inds_selected):
 
     curdoc().add_root(plt)
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--percent_to_display', type=int, default=10, 
+                        help='percentage of objects to display. Choose a low number for a responsive experience, and 100 for presenting the full dataset.')
+    parser.add_argument('--plot_width', type=int, default=800, 
+                        help='width of the plots.')
+    args = parser.parse_args()
+    return args
 
 if __name__ == '__main__':
+    
+    args = parse_args()
+    PERCENT_TO_DISPLAY = args.percent_to_display
+    PLOT_WIDTH = args.plot_width
     # START OF SCRIPT
     load_data()
 
